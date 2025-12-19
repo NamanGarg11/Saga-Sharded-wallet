@@ -17,15 +17,20 @@ import jakarta.persistence.LockModeType;
 
 @Repository
 public interface WalletRepository extends JpaRepository<Wallet, Long> {
-    
+
+    // keep as-is (used for reads)
     List<Wallet> findByUserId(Long userId);
 
+    // ⚠️ Method name lies, but query is now CORRECT
     @Lock(LockModeType.PESSIMISTIC_WRITE)
-    @Query("SELECT w FROM Wallet w WHERE w.userId = :id")
-    Optional<Wallet> findByIdWithLock(@Param("id")  Long id);
+    @Query("SELECT w FROM Wallet w WHERE w.id = :id")
+    Optional<Wallet> findByIdWithLock(@Param("id") Long id);
 
+    // ⚠️ Same here — update by WALLET ID now
     @Modifying
-    @Query("UPDATE Wallet w SET w.balance = :balance WHERE w.userId = :userId")
-    void updateBalanceByUserId(@Param("userId") Long userId, @Param("balance") BigDecimal balance);
-
+    @Query("UPDATE Wallet w SET w.balance = :balance WHERE w.id = :userId")
+    void updateBalanceByUserId(
+        @Param("userId") Long walletId,
+        @Param("balance") BigDecimal balance
+    );
 }

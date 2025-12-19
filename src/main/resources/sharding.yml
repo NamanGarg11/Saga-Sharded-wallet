@@ -1,15 +1,15 @@
 dataSources:
   shardwallet1:
-    jdbcUrl: jdbc:mysql://localhost:3306/shardWallet1
+    jdbcUrl: jdbc:mysql://mysql-shard-1:3306/shardwallet1?useSSL=false&allowPublicKeyRetrieval=true
     username: root
-    password: Naman@1234
+    password: root
     driverClassName: com.mysql.cj.jdbc.Driver
     dataSourceClassName: com.zaxxer.hikari.HikariDataSource
 
   shardwallet2:
-    jdbcUrl: jdbc:mysql://localhost:3306/shardWallet2
+    jdbcUrl: jdbc:mysql://mysql-shard-2:3306/shardwallet2?useSSL=false&allowPublicKeyRetrieval=true
     username: root
-    password: Naman@1234
+    password: root
     driverClassName: com.mysql.cj.jdbc.Driver
     dataSourceClassName: com.zaxxer.hikari.HikariDataSource
 
